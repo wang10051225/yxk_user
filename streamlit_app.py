@@ -102,7 +102,7 @@ with col1:
 with col2:
     if st.button("🗑️ 清空所有", use_container_width=True):
         st.session_state.show_clear_all_confirm = True
-        st.return()
+        st.rerun()
 
 if st.session_state.get('show_clear_all_confirm', False):
     st.sidebar.warning("⚠️ 危险操作！这将删除系统中的所有用户！")
@@ -117,11 +117,11 @@ if st.session_state.get('show_clear_all_confirm', False):
                 st.session_state.current_users = query_all_user_info()
             st.info("🔄 用户列表已自动刷新")
             st.session_state.show_clear_all_confirm = False
-            st.return()
+            st.rerun()
     with col_confirm2:
         if st.button("❌ 取消", use_container_width=True):
             st.session_state.show_clear_all_confirm = False
-            st.return()
+            st.rerun()
 
 # 主界面内容
 tab1, tab2, tab3 = st.tabs(["📋 用户列表", "➕ 添加用户", "📊 数据对比"])
@@ -145,17 +145,17 @@ with tab1:
             if st.button("🔄 刷新列表", use_container_width=True):
                 st.session_state.current_users = query_all_user_info()
                 st.session_state.selected_users = []
-                st.return()
+                st.rerun()
         
         with col2:
             if st.button("📋 全选", key="select_all_btn", use_container_width=True):
                 st.session_state.selected_users = list(df.index)
-                st.return()
+                st.rerun()
         
         with col3:
             if st.button("🗑️ 清空选择", key="clear_all_btn", use_container_width=True):
                 st.session_state.selected_users = []
-                st.return()
+                st.rerun()
         
         # 显示用户统计和选择信息
         total_users = len(df)
@@ -224,12 +224,12 @@ with tab1:
                         # 刷新列表
                         st.session_state.current_users = query_all_user_info()
                         st.session_state.selected_users = []
-                        st.return()
+                        st.rerun()
             
             with col2:
                 if st.button("📋 清除选择", use_container_width=True):
                     st.session_state.selected_users = []
-                    st.return()
+                    st.rerun()
     else:
         st.info("暂无用户数据，请点击侧边栏的'刷新用户列表'按钮")
 
@@ -366,4 +366,5 @@ st.markdown("""
     <p>🏔️ 游侠客游客管理工具 | 基于Streamlit开发</p>
 </div>
 """, unsafe_allow_html=True)
+
 
